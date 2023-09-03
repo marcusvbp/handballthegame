@@ -12,7 +12,16 @@ class HandballCourt extends SpriteComponent
   FutureOr<void> onLoad() {
     debugMode = true;
     sprite = Sprite(game.images.fromCache('court.png'));
-    add(RectangleHitbox());
+    add(
+      PolygonHitbox(
+        [
+          Vector2(535, 0), // linha superior
+          Vector2(2093, 0), // linha direita
+          Vector2(2626, 956), // linha inferior
+          Vector2(0, 956), // linha esquerda
+        ],
+      ),
+    );
     return super.onLoad();
   }
 }
