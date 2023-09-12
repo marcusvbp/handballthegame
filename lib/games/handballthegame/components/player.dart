@@ -13,10 +13,13 @@ class Player extends PositionComponent
     with HasGameRef<HandeballTheGame>, CollisionCallbacks {
   final Character character;
   final JoystickComponent? joystick;
+
   Player({required super.position, required this.character, this.joystick})
       : super();
 
   JoystickDirection lastDirection = JoystickDirection.right;
+  JoystickDirection? _collisionDirection;
+  final bool _hasCollidedWorldLimit = false;
   final double _speed = 10;
   bool isOutOfLimits = false;
 
@@ -81,17 +84,17 @@ class Player extends PositionComponent
   void onCollisionStart(
       Set<Vector2> intersectionPoints, PositionComponent other) {
     if (other is WorldLimits) {
-      // if (intersectionPoints.length == 2) {
-      //   final mid = (intersectionPoints.elementAt(0) +
-      //           intersectionPoints.elementAt(1)) /
-      //       2;
-
-      //   final collisionVector = absoluteCenter - mid;
-      //   double penetrationDepth = (size.x / 2) - collisionVector.length;
-
-      //   collisionVector.normalize();
-      //   position += collisionVector.scaled(penetrationDepth);
+      // _hasCollidedWorldLimit = true;
+      // if (_topDirections.contains(joystick?.direction)) {
+      //   _collisionDirection = JoystickDirection.up;
+      // } else if (_rightDirections.contains(joystick?.direction)) {
+      //   _collisionDirection = JoystickDirection.right;
+      // } else if (_bottomDirections.contains(joystick?.direction)) {
+      //   _collisionDirection = JoystickDirection.down;
+      // } else {
+      //   _collisionDirection = JoystickDirection.left;
       // }
+
       log('atingiu o limite do mundo');
     }
     super.onCollisionStart(intersectionPoints, other);
@@ -100,6 +103,11 @@ class Player extends PositionComponent
   void move() {
     if (joystick != null) {
       position.add(joystick!.relativeDelta * _speed);
+      // if (!_hasCollidedWorldLimit) {
+      // } else {
+      //   joystick!.
+      //   if(_collisionDirection != )
+      // }
     }
   }
 
