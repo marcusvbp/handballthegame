@@ -51,32 +51,4 @@ class HandeballTheGame extends FlameGame
 
     return super.onLoad();
   }
-
-  // @override
-  // void update(double dt) {
-  //   cameraComponent.viewfinder.position = _getCameraPosition();
-  //   super.update(dt);
-  // }
-
-  // Vector2 _getCameraPosition() {
-  //   double y = _player.position.y;
-  //   double x = _player.position.x;
-  //   if (_player.position.y <= -201) {
-  //     y = -201;
-  //   } else if (_player.position.y >= 138) {
-  //     y = 138;
-  //   } else {
-  //     y = _player.position.y;
-  //   }
-
-  //   if (_player.position.x <= -930) {
-  //     x = -930;
-  //   } else if (_player.position.x >= 930) {
-  //     x = 930;
-  //   } else {
-  //     x = _player.position.x;
-  //   }
-
-  //   return Vector2(x, y);
-  // }
 }
