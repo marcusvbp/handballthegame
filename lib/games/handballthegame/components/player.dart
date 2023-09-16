@@ -3,8 +3,8 @@ import 'dart:developer';
 
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:handballthegame/games/handballthegame/components/arena.dart';
 import 'package:handballthegame/games/handballthegame/components/shadow.dart';
-import 'package:handballthegame/games/handballthegame/components/world_limits.dart';
 import 'package:handballthegame/games/handballthegame/game.dart';
 import 'package:handballthegame/games/handballthegame/players/character.dart';
 import 'package:handballthegame/games/handballthegame/scenarios/court.dart';
@@ -19,7 +19,7 @@ class Player extends PositionComponent
 
   JoystickDirection lastDirection = JoystickDirection.right;
   JoystickDirection? _collisionDirection;
-  final bool _hasCollidedWorldLimit = false;
+  bool _hasCollidedWorldLimit = false;
   final double _speed = 10;
   bool isOutOfLimits = false;
 
@@ -57,6 +57,7 @@ class Player extends PositionComponent
     add(RectangleHitbox(
       size: Vector2(65, 115),
       position: Vector2(0, -62),
+      collisionType: CollisionType.active,
     ));
     return super.onLoad();
   }
@@ -81,23 +82,22 @@ class Player extends PositionComponent
   }
 
   @override
-  void onCollisionStart(
-      Set<Vector2> intersectionPoints, PositionComponent other) {
-    if (other is WorldLimits) {
-      // _hasCollidedWorldLimit = true;
-      // if (_topDirections.contains(joystick?.direction)) {
-      //   _collisionDirection = JoystickDirection.up;
-      // } else if (_rightDirections.contains(joystick?.direction)) {
-      //   _collisionDirection = JoystickDirection.right;
-      // } else if (_bottomDirections.contains(joystick?.direction)) {
-      //   _collisionDirection = JoystickDirection.down;
-      // } else {
-      //   _collisionDirection = JoystickDirection.left;
-      // }
+  void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
+    if (other is Arena) {
+      _hasCollidedWorldLimit = true;
+      if (_topDirections.contains(joystick?.direction)) {
+        _collisionDirection = JoystickDirection.up;
+      } else if (_rightDirections.contains(joystick?.direction)) {
+        _collisionDirection = JoystickDirection.right;
+      } else if (_bottomDirections.contains(joystick?.direction)) {
+        _collisionDirection = JoystickDirection.down;
+      } else {
+        _collisionDirection = JoystickDirection.left;
+      }
 
       log('atingiu o limite do mundo');
     }
-    super.onCollisionStart(intersectionPoints, other);
+    super.onCollision(intersectionPoints, other);
   }
 
   void move() {
