@@ -6,7 +6,8 @@ import 'package:handballthegame/games/handballthegame/game.dart';
 
 class HandballCourt extends SpriteComponent
     with HasGameRef<HandeballTheGame>, CollisionCallbacks {
-  HandballCourt() : super(size: Vector2(2626, 1091), anchor: Anchor.center);
+  HandballCourt({super.priority})
+      : super(size: Vector2(2626, 1091), anchor: Anchor.center);
 
   List<Vector2> hitboxLimits = [
     Vector2(535, 0), // linha superior
@@ -17,7 +18,7 @@ class HandballCourt extends SpriteComponent
 
   @override
   FutureOr<void> onLoad() {
-    debugMode = true;
+    // debugMode = true;
     sprite = Sprite(game.images.fromCache('court.png'));
     add(
       PolygonHitbox(hitboxLimits),

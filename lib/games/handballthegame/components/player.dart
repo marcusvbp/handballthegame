@@ -14,8 +14,12 @@ class Player extends PositionComponent
   final Character character;
   final JoystickComponent? joystick;
 
-  Player({required super.position, required this.character, this.joystick})
-      : super();
+  Player({
+    required super.position,
+    required this.character,
+    this.joystick,
+    super.priority,
+  }) : super();
 
   JoystickDirection lastDirection = JoystickDirection.right;
   JoystickDirection? _collisionDirection;
