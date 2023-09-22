@@ -1,17 +1,16 @@
-import 'package:flame/collisions.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:handballthegame/games/handballthegame/game.dart';
 
-class BallBody extends BodyComponent<HandeballTheGame> with CollisionCallbacks {
-  final Vector2? position;
+class BallBody extends BodyComponent<HandeballTheGame> {
+  final Vector2? initialPosition;
 
-  BallBody({this.position});
+  BallBody({this.initialPosition});
 
   @override
   Body createBody() {
     final body = BodyDef(
       type: BodyType.dynamic,
-      position: position,
+      position: initialPosition,
     );
     final shape = CircleShape();
     shape.radius = 10;

@@ -18,15 +18,6 @@ class Post extends PositionComponent
       flipHorizontally();
     }
 
-    add(PolygonHitbox([
-      Vector2(200, 30),
-      Vector2(210, 30),
-      Vector2(210, 240),
-      Vector2(110, 428),
-      Vector2(100, 428),
-      Vector2(200, 240),
-    ]));
-
     return super.onLoad();
   }
 }

@@ -3,7 +3,7 @@ import 'dart:developer';
 
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:handballthegame/games/handballthegame/components/arena.dart';
+import 'package:handballthegame/games/handballthegame/components/ball.dart';
 import 'package:handballthegame/games/handballthegame/components/shadow.dart';
 import 'package:handballthegame/games/handballthegame/game.dart';
 import 'package:handballthegame/games/handballthegame/players/character.dart';
@@ -23,9 +23,10 @@ class Player extends PositionComponent
 
   JoystickDirection lastDirection = JoystickDirection.right;
   JoystickDirection? _collisionDirection;
-  bool _hasCollidedWorldLimit = false;
+  final bool _hasCollidedWorldLimit = false;
   final double _speed = 10;
   bool isOutOfLimits = false;
+  bool hasBall = false;
 
   final List<JoystickDirection> _rightDirections = [
     JoystickDirection.right,
@@ -50,7 +51,7 @@ class Player extends PositionComponent
 
   @override
   FutureOr<void> onLoad() {
-    debugMode = true;
+    // debugMode = true;
     final shadow = Shadow(
       position: Vector2(25, 50),
       size: Vector2(49, 21),
@@ -82,26 +83,8 @@ class Player extends PositionComponent
         log('O Jogador saiu do campo');
       }
     }
+
     super.onCollisionEnd(other);
-  }
-
-  @override
-  void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
-    if (other is Arena) {
-      _hasCollidedWorldLimit = true;
-      if (_topDirections.contains(joystick?.direction)) {
-        _collisionDirection = JoystickDirection.up;
-      } else if (_rightDirections.contains(joystick?.direction)) {
-        _collisionDirection = JoystickDirection.right;
-      } else if (_bottomDirections.contains(joystick?.direction)) {
-        _collisionDirection = JoystickDirection.down;
-      } else {
-        _collisionDirection = JoystickDirection.left;
-      }
-
-      log('atingiu o limite do mundo');
-    }
-    super.onCollision(intersectionPoints, other);
   }
 
   void move() {
@@ -113,6 +96,15 @@ class Player extends PositionComponent
       //   if(_collisionDirection != )
       // }
     }
+  }
+
+  @override
+  void onCollisionStart(
+      Set<Vector2> intersectionPoints, PositionComponent other) {
+    if (other is Ball) {
+      hasBall = true;
+    }
+    super.onCollisionStart(intersectionPoints, other);
   }
 
   void updateSpriteOnMove() {

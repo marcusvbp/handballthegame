@@ -5,9 +5,9 @@ import 'package:handballthegame/games/handballthegame/components/shadow.dart';
 import 'package:handballthegame/games/handballthegame/game.dart';
 
 class ShadowBody extends BodyComponent<HandeballTheGame> with ContactCallbacks {
-  final Vector2? position;
+  final Vector2? initialPostition;
   final Vector2? size;
-  ShadowBody({this.position, this.size});
+  ShadowBody({this.initialPostition, this.size});
 
   @override
   Future<void> onLoad() {
@@ -18,8 +18,8 @@ class ShadowBody extends BodyComponent<HandeballTheGame> with ContactCallbacks {
   @override
   Body createBody() {
     final body = BodyDef(
-      position: position,
       type: BodyType.static,
+      position: initialPostition,
     );
     paint = Paint()..color = const Color(0x00000000);
     final shape = PolygonShape();
