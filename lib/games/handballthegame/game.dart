@@ -47,15 +47,15 @@ class HandeballTheGame extends Forge2DGame
     cameraComponent.setBounds(
         Rectangle.fromCenter(center: court.center, size: Vector2(2000, 1000)));
 
+    ball = Ball(
+      position: court.center + Vector2(0, -200),
+    );
+
     _player = Player(
       joystick: joystick,
       position: court.center + Vector2(-80, -170),
       character: BoyPlayer(),
       priority: 1,
-    );
-
-    ball = Ball(
-      position: court.center + Vector2(0, -200),
     );
 
     _postBack1 = PostBack(
@@ -92,7 +92,7 @@ class HandeballTheGame extends Forge2DGame
 
     addAll([cameraComponent, world]);
 
-    cameraComponent.follow(_player);
+    cameraComponent.follow(ball);
 
     return super.onLoad();
   }

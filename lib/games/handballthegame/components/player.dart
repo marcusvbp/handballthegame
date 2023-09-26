@@ -103,6 +103,8 @@ class Player extends PositionComponent
       Set<Vector2> intersectionPoints, PositionComponent other) {
     if (other is Ball) {
       hasBall = true;
+      add(Ball(position: Vector2(50, 50), isBeingHeld: true));
+      gameRef.cameraComponent.follow(this);
     }
     super.onCollisionStart(intersectionPoints, other);
   }

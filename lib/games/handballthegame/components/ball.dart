@@ -9,19 +9,29 @@ import 'package:handballthegame/games/handballthegame/game.dart';
 
 class Ball extends PositionComponent
     with HasGameRef<HandeballTheGame>, CollisionCallbacks {
-  Ball({super.position});
+  final bool isBeingHeld;
+  Ball({super.position, this.isBeingHeld = false});
   late BallBody _ballBody;
+  late ShadowBody _shadow;
   late CircleHitbox _hitbox;
 
   @override
   FutureOr<void> onLoad() {
     // debugMode = true;
-    _ballBody = BallBody(initialPosition: Vector2(0, -30));
+    _shadow = ShadowBody(
+      initialPostition: Vector2(0, 30),
+      size: Vector2(25, 10),
+    );
+    _ballBody = BallBody(
+      initialPosition: Vector2(0, -30),
+      gravityOverride: isBeingHeld ? Vector2.zero() : null,
+    );
     _hitbox = CircleHitbox(radius: 10, anchor: Anchor.center);
     anchor = Anchor.center;
     add(_hitbox);
-
-    add(ShadowBody(initialPostition: Vector2(0, 30), size: Vector2(25, 10)));
+    if (!isBeingHeld) {
+      add(_shadow);
+    }
     add(_ballBody);
 
     return super.onLoad();
