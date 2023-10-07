@@ -87,17 +87,6 @@ class Player extends PositionComponent
     super.onCollisionEnd(other);
   }
 
-  void move() {
-    if (joystick != null) {
-      position.add(joystick!.relativeDelta * _speed);
-      // if (!_hasCollidedWorldLimit) {
-      // } else {
-      //   joystick!.
-      //   if(_collisionDirection != )
-      // }
-    }
-  }
-
   @override
   void onCollisionStart(
       Set<Vector2> intersectionPoints, PositionComponent other) {
@@ -107,6 +96,20 @@ class Player extends PositionComponent
       gameRef.cameraComponent.follow(this);
     }
     super.onCollisionStart(intersectionPoints, other);
+  }
+
+  void move() {
+    if (joystick != null) {
+      position.add(joystick!.relativeDelta * _speed);
+      // if (!_hasCollidedWorldLimit) {
+      // } else {
+      //   joystick!.
+      //   if(_collisionDirection != )
+      // }
+    }
+    if (!game.cameraComponent.canSee(this)) {
+      game.cameraComponent.moveTo(position, speed: 2000);
+    }
   }
 
   void updateSpriteOnMove() {
