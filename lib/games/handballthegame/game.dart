@@ -45,7 +45,11 @@ class HandeballTheGame extends Forge2DGame
     cameraComponent.viewport.add(joystick);
 
     cameraComponent.setBounds(
-        Rectangle.fromCenter(center: court.center, size: Vector2(2000, 1000)));
+      Rectangle.fromCenter(
+        center: court.center,
+        size: Vector2(2000, 1000),
+      ),
+    );
 
     ball = Ball(
       position: court.center + Vector2(0, -200),
