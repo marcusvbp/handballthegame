@@ -96,7 +96,7 @@ class HandeballTheGame extends Forge2DGame
 
     addAll([cameraComponent, world]);
 
-    cameraComponent.follow(ball);
+    cameraComponent.follow(_player);
 
     return super.onLoad();
   }

@@ -107,9 +107,9 @@ class Player extends PositionComponent
       //   if(_collisionDirection != )
       // }
     }
-    if (!game.cameraComponent.canSee(this)) {
-      game.cameraComponent.moveTo(position, speed: 2000);
-    }
+    // if (!game.cameraComponent.canSee(this)) {
+    //   game.cameraComponent.moveTo(position, speed: 2000);
+    // }
   }
 
   void updateSpriteOnMove() {
